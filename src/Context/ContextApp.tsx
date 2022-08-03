@@ -5,6 +5,7 @@ import {
   ReactNode,
   Dispatch,
   SetStateAction,
+  useEffect,
 } from "react";
 
 export interface IUser {
@@ -25,6 +26,13 @@ const Context = createContext({} as IContextData);
 
 const AppContextProvider = ({ children }: IContextProvide) => {
   const [user, setUser] = useState({} as IUser);
+
+  useEffect(() => {
+    const localUser = localStorage.getItem("USER_DATA");
+    if (localUser) {
+      setUser(JSON.parse(localUser));
+    }
+  }, []);
 
   return (
     <Context.Provider value={{ user, setUser }}>{children}</Context.Provider>
