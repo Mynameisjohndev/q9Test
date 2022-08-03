@@ -8,6 +8,8 @@ import {
   useEffect,
 } from "react";
 
+import { api } from "../Services/api";
+
 export interface IUser {
   email: string;
   token: string;
@@ -16,7 +18,6 @@ export interface IUser {
 interface IContextData {
   user: IUser;
   setUser: Dispatch<SetStateAction<IUser>>;
-  breed: string;
 }
 
 interface IContextProvide {
@@ -27,7 +28,6 @@ const Context = createContext({} as IContextData);
 
 const AppContextProvider = ({ children }: IContextProvide) => {
   const [user, setUser] = useState({} as IUser);
-  const [breed, setBreed] = useState("chihuahua");
 
   useEffect(() => {
     const localUser = localStorage.getItem("USER_DATA");
@@ -36,10 +36,14 @@ const AppContextProvider = ({ children }: IContextProvide) => {
     }
   }, []);
 
+  useEffect(() => {
+    if (user.token !== "") {
+      api.defaults.headers.common.Authorization = `${user.token}`;
+    }
+  }, [user]);
+
   return (
-    <Context.Provider value={{ user, setUser, breed }}>
-      {children}
-    </Context.Provider>
+    <Context.Provider value={{ user, setUser }}>{children}</Context.Provider>
   );
 };
 
