@@ -12,7 +12,7 @@ import { NotFound } from "../pages/NotFound";
 import { Signup } from "../pages/Signup";
 
 export const AppRoutes = () => {
-  const { user } = useAppContext();
+  const { user, breed } = useAppContext();
 
   const isLogged = user.token !== undefined;
   const PrivateRoute = ({ redirectTo }: any) => {
@@ -29,9 +29,9 @@ export const AppRoutes = () => {
     <BrowserRouter>
       <Routes>
         <Route element={<PrivateRoute redirectTo="/" />}>
-          <Route path="/list" element={<List />} />
+          <Route path="/list/:breed" element={<List />} />
         </Route>
-        <Route element={<Public redirectTo="/list" />}>
+        <Route element={<Public redirectTo={`/list/${breed}`} />}>
           <Route path="/" element={<Signup />} />
         </Route>
         <Route path="*" element={<NotFound />} />

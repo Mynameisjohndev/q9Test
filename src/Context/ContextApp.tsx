@@ -16,6 +16,7 @@ export interface IUser {
 interface IContextData {
   user: IUser;
   setUser: Dispatch<SetStateAction<IUser>>;
+  breed: string;
 }
 
 interface IContextProvide {
@@ -26,6 +27,7 @@ const Context = createContext({} as IContextData);
 
 const AppContextProvider = ({ children }: IContextProvide) => {
   const [user, setUser] = useState({} as IUser);
+  const [breed, setBreed] = useState("chihuahua");
 
   useEffect(() => {
     const localUser = localStorage.getItem("USER_DATA");
@@ -35,7 +37,9 @@ const AppContextProvider = ({ children }: IContextProvide) => {
   }, []);
 
   return (
-    <Context.Provider value={{ user, setUser }}>{children}</Context.Provider>
+    <Context.Provider value={{ user, setUser, breed }}>
+      {children}
+    </Context.Provider>
   );
 };
 
