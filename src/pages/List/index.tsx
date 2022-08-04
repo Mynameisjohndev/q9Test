@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useState } from "react";
-import ReactLoading from "react-loading";
 import { useNavigate, useParams } from "react-router-dom";
 
 import { ContentButtons } from "../../Components/ContentButtons";
@@ -11,7 +10,6 @@ import { Container } from "./styles";
 export interface IImage {
   image: string;
 }
-
 export interface IBreed {
   title: string;
   breed: string;
