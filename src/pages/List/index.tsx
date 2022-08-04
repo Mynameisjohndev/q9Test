@@ -1,9 +1,10 @@
 import { useCallback, useEffect, useState } from "react";
+import ReactLoading from "react-loading";
 import { useNavigate, useParams } from "react-router-dom";
 
 import { ContentButtons } from "../../Components/ContentButtons";
-import { ImageBreed } from "../../Components/ImageBreed";
 import { ListImages } from "../../Components/ListImages";
+import { Loading } from "../../Components/Loading";
 import { api } from "../../Services/api";
 import { Container } from "./styles";
 
@@ -26,6 +27,7 @@ const allBreeds: IBreed[] = [
 export const List = () => {
   const navigate = useNavigate();
   const [listImages, setListImages] = useState<IImage[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
   const { breed } = useParams();
 
   const handleNavigateToBreed = (breed: string) => {
@@ -33,11 +35,13 @@ export const List = () => {
   };
 
   const loadBreedImages = useCallback(async () => {
+    setLoading(true);
     const { data } = await api.get(`/list?breed=${breed}`);
     const images: IImage[] = [];
     data.list.forEach((breedImage: string) => {
       images.push({ image: breedImage });
     });
+    setLoading(false);
     setListImages(images);
   }, [breed]);
 
@@ -55,7 +59,7 @@ export const List = () => {
           handleNavigateToBreed={handleNavigateToBreed}
         />
       </header>
-      <ListImages listImages={listImages} />
+      {loading === true ? <Loading /> : <ListImages listImages={listImages} />}
     </Container>
   );
 };
