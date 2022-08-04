@@ -1,11 +1,27 @@
 import { useCallback, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
+import { ContentButtons } from "../../Components/ContentButtons";
+import { ImageBreed } from "../../Components/ImageBreed";
+import { ListImages } from "../../Components/ListImages";
 import { api } from "../../Services/api";
+import { Container } from "./styles";
 
-interface IImage {
+export interface IImage {
   image: string;
 }
+
+export interface IBreed {
+  title: string;
+  breed: string;
+}
+
+const allBreeds: IBreed[] = [
+  { breed: "husky", title: "husky" },
+  { breed: "chihuahua", title: "Chihuahua" },
+  { breed: "pug", title: "Pug" },
+  { breed: "labrador", title: "Labrador" },
+];
 
 export const List = () => {
   const navigate = useNavigate();
@@ -32,39 +48,14 @@ export const List = () => {
   }, [breed]);
 
   return (
-    <div>
-      <h1>List</h1>
-      <button
-        onClick={() => {
-          handleNavigateToBreed("husky");
-        }}
-      >
-        Husky
-      </button>
-      <button
-        onClick={() => {
-          handleNavigateToBreed("chihuahua");
-        }}
-      >
-        Chihuahua
-      </button>
-      <button
-        onClick={() => {
-          handleNavigateToBreed("pug");
-        }}
-      >
-        Pug
-      </button>
-      <button
-        onClick={() => {
-          handleNavigateToBreed("labrador");
-        }}
-      >
-        Labrador
-      </button>
-      {listImages.map((item, index) => {
-        return <h1 key={index}>{item.image}</h1>;
-      })}
-    </div>
+    <Container>
+      <header>
+        <ContentButtons
+          data={allBreeds}
+          handleNavigateToBreed={handleNavigateToBreed}
+        />
+      </header>
+      <ListImages listImages={listImages} />
+    </Container>
   );
 };
