@@ -13,9 +13,10 @@ export const ContentButtons = ({
 }: IContentButtonsProps) => {
   return (
     <Container>
-      {data.map((item: IBreed) => {
+      {data.map((item: IBreed, index) => {
         return (
           <Button
+            key={index}
             breed={item.breed}
             title={item.title}
             handleNavigateToBreed={() => handleNavigateToBreed(item.breed)}
