@@ -4,6 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { ContentButtons } from "../../Components/ContentButtons";
 import { ListImages } from "../../Components/ListImages";
 import { Loading } from "../../Components/Loading";
+import { useAppContext } from "../../Context/ContextApp";
 import { api } from "../../Services/api";
 import { Container } from "./styles";
 
@@ -27,6 +28,7 @@ export const List = () => {
   const [listImages, setListImages] = useState<IImage[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const { breed } = useParams();
+  const { setUser } = useAppContext();
 
   const handleNavigateToBreed = (breed: string) => {
     navigate(`/list/${breed}`);

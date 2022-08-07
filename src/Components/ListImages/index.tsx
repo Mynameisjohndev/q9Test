@@ -14,7 +14,6 @@ export const ListImages = ({ listImages }: IListImagesProps) => {
   const [imageModal, setImageModal] = useState<string>("");
 
   const handleSelectImage = (image: string) => {
-    console.log("click");
     setOpenModal(true);
     setImageModal(image);
   };

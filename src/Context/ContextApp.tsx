@@ -11,8 +11,8 @@ import {
 import { api } from "../Services/api";
 
 export interface IUser {
-  email: string;
-  token: string;
+  email?: string;
+  token?: string;
 }
 
 interface IContextData {

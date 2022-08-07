@@ -2,6 +2,7 @@ import { useState } from "react";
 
 import { useAppContext } from "../../Context/ContextApp";
 import { api } from "../../Services/api";
+import { Container } from "./styles";
 
 export const Signup = () => {
   const [email, setEmail] = useState("");
@@ -11,14 +12,12 @@ export const Signup = () => {
     const { data } = await api.post("/register", { email });
     if (data) {
       setUser(data.user);
-      console.log(data.user);
-
       localStorage.setItem("USER_DATA", JSON.stringify(data.user));
     }
   };
 
   return (
-    <div>
+    <Container>
       <input
         placeholder="E-mail"
         type="email"
@@ -27,6 +26,6 @@ export const Signup = () => {
       <button type="button" onClick={handleRegisterInApllication}>
         Registrar
       </button>
-    </div>
+    </Container>
   );
 };
